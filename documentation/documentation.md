@@ -53,7 +53,7 @@ Output 3:
 ####1. specify methods
 
 > isExempt(productType:string): boolean<br>
-> calculateTaxRate(productPrice: number): number<br>
+> calculateTaxRate(product: Product): number<br>
 > calculatePrice(price: number, tax: number): number <br>
 > 
 ####2. create Model
@@ -67,5 +67,8 @@ Output 3:
 > 2:arrange test data<br>
 > 
 > 
-![](../../../Desktop/Bildschirmfoto 2021-08-31 um 16.06.37.png)
+>Test empty service method:
+![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.00.00.png)
+###### service:
+![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.01.08.png)
 
