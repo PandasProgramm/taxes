@@ -40,7 +40,6 @@ export class TaxService {
     console.log(product);
     if ( product.taxPercent > 0 ) {
       taxPrice = Math.round(product.priceWithoutTax / 100 * product.taxPercent * 100) / 100;
-//      taxPrice = Math.round((product.priceWithoutTax / 100 *  product.taxPercent) * 20) / 20.0;
       console.log(taxPrice);
     }
     const priceProduct = Math.round((product.priceWithoutTax + taxPrice) * 100 ) / 100;

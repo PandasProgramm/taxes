@@ -82,3 +82,6 @@ Output 3:
 > ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.31.39.png)
 > ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.30.21.png)
 
+>calculatePrice:
+> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.31.39.png)
+> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 17.05.30.png)
