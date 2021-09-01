@@ -69,9 +69,9 @@ describe('service test for tax service', () => {
       taxCD = taxService.calculateTaxRate(cd);
       taxChocolateBar = taxService.calculateTaxRate(chocolateBar);
 
-      priceBook = taxService.calculatePrice(book.priceWithoutTax, book.taxPercent);
-      priceCD = taxService.calculatePrice(cd.priceWithoutTax, cd.taxPercent);
-      priceChocolateBar = taxService.calculatePrice(chocolateBar.priceWithoutTax, chocolateBar.taxPercent);
+      priceBook = taxService.calculatePrice(taxBook);
+      priceCD = taxService.calculatePrice(cd);
+      priceChocolateBar = taxService.calculatePrice(taxChocolateBar);
       products = [book, cd, chocolateBar];
 
       totalSaleTax = taxService.calculateTotalSaleTax(products);
@@ -168,8 +168,8 @@ describe('service test for tax service', () => {
       taxImportedBoxChocolate = taxService.calculateTaxRate(importedBoxChocolate);
       taxImportedPerfume = taxService.calculateTaxRate(importedPerfume);
 
-      priceBoxChocolate = taxService.calculatePrice(importedBoxChocolate.priceWithoutTax, importedBoxChocolate.taxPercent);
-      pricePerfume = taxService.calculatePrice(importedPerfume.priceWithoutTax, importedPerfume.taxPercent);
+      priceBoxChocolate = taxService.calculatePrice(importedBoxChocolate);
+      pricePerfume = taxService.calculatePrice(importedPerfume);
 
       totalSaleTax = taxService.calculateTotalSaleTax(products);
       totalCoasts = taxService.calculateTotalCoasts(products);
@@ -289,10 +289,10 @@ describe('service test for tax service', () => {
       taxPerfume = taxService.calculateTaxRate(perfume);
       taxIBC = taxService.calculateTaxRate(importedBoxChocolate);
 
-      pricePacketPills = taxService.calculatePrice(packetPills.priceWithoutTax, packetPills.taxPercent);
-      priceIP = taxService.calculatePrice(importedPerfume.priceWithoutTax, importedPerfume.taxPercent);
-      pricePerfume = taxService.calculatePrice(perfume.priceWithoutTax, perfume.taxPercent);
-      priceIBC = taxService.calculatePrice(importedBoxChocolate.priceWithoutTax, importedBoxChocolate.taxPercent);
+      pricePacketPills = taxService.calculatePrice(packetPills);
+      priceIP = taxService.calculatePrice(importedPerfume);
+      pricePerfume = taxService.calculatePrice(perfume);
+      priceIBC = taxService.calculatePrice(importedBoxChocolate);
 
       totalSaleTax = taxService.calculateTotalSaleTax(products);
       totalCoasts = taxService.calculateTotalCoasts(products);
@@ -327,17 +327,17 @@ describe('service test for tax service', () => {
       });
     });
     describe('test tax service method: calculatePrice', () => {
-      it('should be 27.99€', () => {
-        expect(priceIP.price).toBe(27.99);
+      it('should be 32.19€', () => {
+        expect(priceIP.price).toBe(32.19);
       });
-      it('should be 18.99€', () => {
-        expect(pricePerfume.price).toBe(18.99);
+      it('should be 20.89€', () => {
+        expect(pricePerfume.price).toBe(20.89);
       });
       it('should be 9.75€', () => {
         expect(pricePacketPills.price).toBe(9.75);
       });
-      it('should be 11.25€', () => {
-        expect(priceIBC.price).toBe(11.25);
+      it('should be 11.81€', () => {
+        expect(priceIBC.price).toBe(11.81);
       });
     });
     describe('test total tax service method: calculateTotalSaleTax', () => {

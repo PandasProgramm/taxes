@@ -34,10 +34,23 @@ export class TaxService {
     };
   }
 
-  public calculatePrice(price: number, tax: number): Product {
-    return null;
+  public calculatePrice(product: Product): Product {
+    let taxPrice = 0;
+    product = this.calculateTaxRate(product);
+    console.log(product);
+    if ( product.taxPercent > 0 ) {
+      taxPrice = Math.round(product.priceWithoutTax / 100 * product.taxPercent * 100) / 100;
+//      taxPrice = Math.round((product.priceWithoutTax / 100 *  product.taxPercent) * 20) / 20.0;
+      console.log(taxPrice);
+    }
+    const priceProduct = Math.round((product.priceWithoutTax + taxPrice) * 100 ) / 100;
+    console.log('priceproduct ', priceProduct);
+    return {
+      ... product,
+      tax : taxPrice,
+      price: priceProduct
+    };
   }
-
   public calculateTotalSaleTax(products: Product[]): number {
     return null;
   }
