@@ -20,11 +20,21 @@ export class TaxService {
     return query;
   }
 
-  public calculateTaxRate(product: Product): number {
-    return null;
+  public calculateTaxRate(product: Product): Product {
+    const isExempt = this.isExempt( product.productType );
+    const basicTax = 10;
+    const importTax = 5;
+    let tax = 0;
+
+    isExempt ? tax += 0 : tax += basicTax ;
+    product.imported ? tax += importTax : tax += 0;
+    return {
+      ...product,
+      taxPercent: tax
+    };
   }
 
-  public calculatePrice(price: number, tax: number): number {
+  public calculatePrice(price: number, tax: number): Product {
     return null;
   }
 

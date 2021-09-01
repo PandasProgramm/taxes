@@ -4,6 +4,7 @@ export interface Product {
   productType: ProductType;
   imported: boolean;
   priceWithoutTax: number;
+  taxPercent: number;
   tax: number;
   price: number;
 }

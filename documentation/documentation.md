@@ -53,7 +53,7 @@ Output 3:
 ####1. specify methods
 
 > isExempt(productType:string): boolean<br>
-> calculateTaxRate(product: Product): number<br>
+> calculateTaxRate(product: Product): Product<br>
 > calculatePrice(price: number, tax: number): number <br>
 > 
 ####2. create Model
@@ -77,3 +77,8 @@ Output 3:
 > ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.31.49.png)
 >tests:
 > ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.33.41.png)
+
+>calculateTaxRate:
+> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.31.39.png)
+> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.30.21.png)
+

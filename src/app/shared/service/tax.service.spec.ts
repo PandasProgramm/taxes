@@ -19,13 +19,13 @@ describe('service test for tax service', () => {
     let isExemptChocolateBar: boolean;
     let isExemptCD: boolean;
 
-    let taxBook: number;
-    let taxCD: number;
-    let taxChocolateBar: number;
+    let taxBook: Product;
+    let taxCD: Product;
+    let taxChocolateBar: Product;
 
-    let priceBook: number;
-    let priceCD: number;
-    let priceChocolateBar: number;
+    let priceBook: Product;
+    let priceCD: Product;
+    let priceChocolateBar: Product;
 
     let products: Product[];
     let totalSaleTax: number;
@@ -38,6 +38,7 @@ describe('service test for tax service', () => {
         productType: ProductType.BOOK,
         priceWithoutTax: 12.49,
         imported: false,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -47,6 +48,7 @@ describe('service test for tax service', () => {
         productType: ProductType.OTHER,
         priceWithoutTax: 14.99,
         imported: false,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -56,6 +58,7 @@ describe('service test for tax service', () => {
         productType: ProductType.FOOD,
         priceWithoutTax: 0.85,
         imported: false,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -66,9 +69,9 @@ describe('service test for tax service', () => {
       taxCD = taxService.calculateTaxRate(cd);
       taxChocolateBar = taxService.calculateTaxRate(chocolateBar);
 
-      priceBook = taxService.calculatePrice(book.priceWithoutTax, book.tax);
-      priceCD = taxService.calculatePrice(cd.priceWithoutTax, cd.tax);
-      priceChocolateBar = taxService.calculatePrice(chocolateBar.priceWithoutTax, chocolateBar.tax);
+      priceBook = taxService.calculatePrice(book.priceWithoutTax, book.taxPercent);
+      priceCD = taxService.calculatePrice(cd.priceWithoutTax, cd.taxPercent);
+      priceChocolateBar = taxService.calculatePrice(chocolateBar.priceWithoutTax, chocolateBar.taxPercent);
       products = [book, cd, chocolateBar];
 
       totalSaleTax = taxService.calculateTotalSaleTax(products);
@@ -88,24 +91,24 @@ describe('service test for tax service', () => {
     });
     describe('test tax service method: calculateTaxRate', () => {
       it('should not have any tax, because the product typ is food and is not imported', () => {
-        expect(taxBook).toBe(0);
+        expect(taxBook.taxPercent).toBe(0);
       });
       it('should have a rate of 10 percent', () => {
-        expect(taxCD).toBe(10);
+        expect(taxCD.taxPercent).toBe(10);
       });
       it('should not have any tax, because the product typ is food and is not imported', () => {
-        expect(taxChocolateBar).toBe(0);
+        expect(taxChocolateBar.taxPercent).toBe(0);
       });
     });
     describe('test tax service method: calculatePrice', () => {
       it('should to be 12.49€', () => {
-        expect(priceBook).toBe(12.49);
+        expect(priceBook.price).toBe(12.49);
       });
       it('should to be 16.49€', () => {
-        expect(priceCD).toBe(16.49);
+        expect(priceCD.price).toBe(16.49);
       });
       it('should to be 0.85€', () => {
-        expect(priceChocolateBar).toBe(0.85);
+        expect(priceChocolateBar.price).toBe(0.85);
       });
     });
     describe('test total tax service method: calculateTotalSaleTax', () => {
@@ -126,11 +129,11 @@ describe('service test for tax service', () => {
     let isExemptIBC: boolean;
     let isExemptIP: boolean;
 
-    let taxImportedBoxChocolate: number;
-    let taxImportedPerfume: number;
+    let taxImportedBoxChocolate: Product;
+    let taxImportedPerfume: Product;
 
-    let priceBoxChocolate: number;
-    let pricePerfume: number;
+    let priceBoxChocolate: Product;
+    let pricePerfume: Product;
 
     let products: Product[];
     let totalSaleTax: number;
@@ -143,6 +146,7 @@ describe('service test for tax service', () => {
         productType: ProductType.FOOD,
         priceWithoutTax: 10.00,
         imported: true,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -152,6 +156,7 @@ describe('service test for tax service', () => {
         productType: ProductType.OTHER,
         priceWithoutTax: 47.5,
         imported: true,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -163,8 +168,8 @@ describe('service test for tax service', () => {
       taxImportedBoxChocolate = taxService.calculateTaxRate(importedBoxChocolate);
       taxImportedPerfume = taxService.calculateTaxRate(importedPerfume);
 
-      priceBoxChocolate = taxService.calculatePrice(importedBoxChocolate.priceWithoutTax, importedBoxChocolate.tax);
-      pricePerfume = taxService.calculatePrice(importedPerfume.priceWithoutTax, importedPerfume.tax);
+      priceBoxChocolate = taxService.calculatePrice(importedBoxChocolate.priceWithoutTax, importedBoxChocolate.taxPercent);
+      pricePerfume = taxService.calculatePrice(importedPerfume.priceWithoutTax, importedPerfume.taxPercent);
 
       totalSaleTax = taxService.calculateTotalSaleTax(products);
       totalCoasts = taxService.calculateTotalCoasts(products);
@@ -179,19 +184,19 @@ describe('service test for tax service', () => {
       });
     });
     describe('test tax service method: calculateTaxRate', () => {
-      it('should have a rate of 15 percent', () => {
-        expect(taxImportedBoxChocolate).toBe(15);
-      });
       it('should have a rate of 5 percent', () => {
-        expect(taxImportedPerfume).toBe(5);
+        expect(taxImportedBoxChocolate.taxPercent).toBe(5);
+      });
+      it('should have a rate of 15 percent', () => {
+        expect(taxImportedPerfume.taxPercent).toBe(15);
       });
     });
     describe('test tax service method: calculatePrice', () => {
       it('should have a price of 10.50 €', () => {
-        expect(priceBoxChocolate).toBe(10.5);
+        expect(priceBoxChocolate.price).toBe(10.5);
       });
       it('should have a price pf 54.65 €', () => {
-        expect(pricePerfume).toBe(54.65);
+        expect(pricePerfume.price).toBe(54.65);
       });
     });
     describe('test total tax service method: calculateTotalSaleTax', () => {
@@ -216,15 +221,15 @@ describe('service test for tax service', () => {
     let isExemptPerfume: boolean;
     let isExemptIBC: boolean;
 
-    let taxPacketPills: number;
-    let taxIP: number;
-    let taxPerfume: number;
-    let taxIBC: number;
+    let taxPacketPills: Product;
+    let taxIP: Product;
+    let taxPerfume: Product;
+    let taxIBC: Product;
 
-    let pricePacketPills: number;
-    let priceIP: number;
-    let pricePerfume: number;
-    let priceIBC: number;
+    let pricePacketPills: Product;
+    let priceIP: Product;
+    let pricePerfume: Product;
+    let priceIBC: Product;
 
     let products: Product[];
 
@@ -238,6 +243,7 @@ describe('service test for tax service', () => {
         productType: ProductType.OTHER,
         priceWithoutTax: 27.99,
         imported: true,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -247,6 +253,7 @@ describe('service test for tax service', () => {
         productType: ProductType.OTHER,
         priceWithoutTax: 18.99,
         imported: false,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -256,6 +263,7 @@ describe('service test for tax service', () => {
         productType: ProductType.MEDICALS,
         priceWithoutTax: 9.75,
         imported: false,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -265,6 +273,7 @@ describe('service test for tax service', () => {
         productType: ProductType.FOOD,
         priceWithoutTax: 11.25,
         imported: true,
+        taxPercent: 0,
         tax: 0,
         price: 0
       };
@@ -280,10 +289,10 @@ describe('service test for tax service', () => {
       taxPerfume = taxService.calculateTaxRate(perfume);
       taxIBC = taxService.calculateTaxRate(importedBoxChocolate);
 
-      pricePacketPills = taxService.calculatePrice(packetPills.priceWithoutTax, packetPills.tax);
-      priceIP = taxService.calculatePrice(importedPerfume.priceWithoutTax, importedPerfume.tax);
-      pricePerfume = taxService.calculatePrice(perfume.priceWithoutTax, perfume.tax);
-      priceIBC = taxService.calculatePrice(importedBoxChocolate.priceWithoutTax, importedBoxChocolate.tax);
+      pricePacketPills = taxService.calculatePrice(packetPills.priceWithoutTax, packetPills.taxPercent);
+      priceIP = taxService.calculatePrice(importedPerfume.priceWithoutTax, importedPerfume.taxPercent);
+      pricePerfume = taxService.calculatePrice(perfume.priceWithoutTax, perfume.taxPercent);
+      priceIBC = taxService.calculatePrice(importedBoxChocolate.priceWithoutTax, importedBoxChocolate.taxPercent);
 
       totalSaleTax = taxService.calculateTotalSaleTax(products);
       totalCoasts = taxService.calculateTotalCoasts(products);
@@ -304,31 +313,31 @@ describe('service test for tax service', () => {
       });
     });
     describe('test tax service method: calculateTaxRate', () => {
-      it('should have a tax rate of 10 percent', () => {
-        expect(taxPacketPills).toBe(10);
+      it('should have a tax rate of 0 percent', () => {
+        expect(taxPacketPills.taxPercent).toBe(0);
       });
       it('should have a tax rate of 15 percent', () => {
-        expect(taxIP).toBe(15);
+        expect(taxIP.taxPercent).toBe(15);
       });
       it('should have a tax rate of 10 percent', () => {
-        expect(taxPerfume).toBe(10);
+        expect(taxPerfume.taxPercent).toBe(10);
       });
       it('should have a tax rate of 5 percent', () => {
-        expect(taxIBC).toBe(5);
+        expect(taxIBC.taxPercent).toBe(5);
       });
     });
     describe('test tax service method: calculatePrice', () => {
       it('should be 27.99€', () => {
-        expect(priceIP).toBe(27.99);
+        expect(priceIP.price).toBe(27.99);
       });
       it('should be 18.99€', () => {
-        expect(pricePerfume).toBe(18.99);
+        expect(pricePerfume.price).toBe(18.99);
       });
       it('should be 9.75€', () => {
-        expect(pricePacketPills).toBe(9.75);
+        expect(pricePacketPills.price).toBe(9.75);
       });
       it('should be 11.25€', () => {
-        expect(priceIBC).toBe(11.25);
+        expect(priceIBC.price).toBe(11.25);
       });
     });
     describe('test total tax service method: calculateTotalSaleTax', () => {
