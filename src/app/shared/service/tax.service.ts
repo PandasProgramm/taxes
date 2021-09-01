@@ -37,13 +37,10 @@ export class TaxService {
   public calculatePrice(product: Product): Product {
     let taxPrice = 0;
     product = this.calculateTaxRate(product);
-    console.log(product);
     if ( product.taxPercent > 0 ) {
       taxPrice = Math.round(product.priceWithoutTax / 100 * product.taxPercent * 100) / 100;
-      console.log(taxPrice);
     }
     const priceProduct = Math.round((product.priceWithoutTax + taxPrice) * 100 ) / 100;
-    console.log('priceproduct ', priceProduct);
     return {
       ... product,
       tax : taxPrice,
@@ -51,9 +48,13 @@ export class TaxService {
     };
   }
   public calculateTotalSaleTax(products: Product[]): number {
-    return null;
+   let sumTax = 0;
+   products.forEach((product) => sumTax += product.tax);
+   return sumTax;
   }
   public calculateTotalCoasts(products: Product[]): number {
-    return null;
+   let sum = 0;
+   products.forEach((product) => sum += product.price);
+   return sum;
   }
 }

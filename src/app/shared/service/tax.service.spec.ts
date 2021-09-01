@@ -27,9 +27,6 @@ describe('service test for tax service', () => {
     let priceCD: Product;
     let priceChocolateBar: Product;
 
-    let products: Product[];
-    let totalSaleTax: number;
-    let totalCoasts: number;
 
     beforeEach(() => {
       book = {
@@ -72,10 +69,7 @@ describe('service test for tax service', () => {
       priceBook = taxService.calculatePrice(taxBook);
       priceCD = taxService.calculatePrice(cd);
       priceChocolateBar = taxService.calculatePrice(taxChocolateBar);
-      products = [book, cd, chocolateBar];
 
-      totalSaleTax = taxService.calculateTotalSaleTax(products);
-      totalCoasts = taxService.calculateTotalCoasts(products);
     });
 
     describe('test tax service method: isExempt', () => {
@@ -111,16 +105,6 @@ describe('service test for tax service', () => {
         expect(priceChocolateBar.price).toBe(0.85);
       });
     });
-    describe('test total tax service method: calculateTotalSaleTax', () => {
-      it('should have a total sales taxes of 1.50 €', () => {
-        expect(totalSaleTax).toBe(1.5);
-      });
-    });
-    describe('test total tax service method: calculateTotalCoasts', () => {
-      it('should have total coasts of 29.83€', () => {
-        expect(totalCoasts).toBe(29.83);
-      });
-    });
   });
   describe('#input 2', () => {
     let importedBoxChocolate: Product;
@@ -134,10 +118,6 @@ describe('service test for tax service', () => {
 
     let priceBoxChocolate: Product;
     let pricePerfume: Product;
-
-    let products: Product[];
-    let totalSaleTax: number;
-    let totalCoasts: number;
 
     beforeEach(() => {
       importedBoxChocolate = {
@@ -160,7 +140,6 @@ describe('service test for tax service', () => {
         tax: 0,
         price: 0
       };
-      products = [importedBoxChocolate, importedPerfume];
 
       isExemptIBC = taxService.isExempt(importedBoxChocolate.productType);
       isExemptIP = taxService.isExempt(importedPerfume.productType);
@@ -169,10 +148,9 @@ describe('service test for tax service', () => {
       taxImportedPerfume = taxService.calculateTaxRate(importedPerfume);
 
       priceBoxChocolate = taxService.calculatePrice(importedBoxChocolate);
-      pricePerfume = taxService.calculatePrice(importedPerfume);
+      pricePerfume = taxService.calculatePrice(taxImportedPerfume);
 
-      totalSaleTax = taxService.calculateTotalSaleTax(products);
-      totalCoasts = taxService.calculateTotalCoasts(products);
+
     });
 
     describe('test tax service method: isExempt', () => {
@@ -195,18 +173,8 @@ describe('service test for tax service', () => {
       it('should have a price of 10.50 €', () => {
         expect(priceBoxChocolate.price).toBe(10.5);
       });
-      it('should have a price pf 54.65 €', () => {
-        expect(pricePerfume.price).toBe(54.65);
-      });
-    });
-    describe('test total tax service method: calculateTotalSaleTax', () => {
-      it('should have a total sales taxes of 7.65€', () => {
-        expect(totalSaleTax).toBe(7.65);
-      });
-    });
-    describe('test total tax service method: calculateTotalCoasts', () => {
-      it('should have total coasts of 65.15 ', () => {
-        expect(totalCoasts).toBe(65.15);
+      it('should have a price of 54.63 €', () => {
+        expect(pricePerfume.price).toBe(54.63);
       });
     });
   });
@@ -230,11 +198,6 @@ describe('service test for tax service', () => {
     let priceIP: Product;
     let pricePerfume: Product;
     let priceIBC: Product;
-
-    let products: Product[];
-
-    let totalSaleTax: number;
-    let totalCoasts: number;
 
     beforeEach(() => {
       importedPerfume = {
@@ -277,8 +240,6 @@ describe('service test for tax service', () => {
         tax: 0,
         price: 0
       };
-      products = [importedPerfume, perfume, packetPills, importedBoxChocolate ];
-
       isExemptPacketPills = taxService.isExempt(packetPills.productType);
       isExemptIP  = taxService.isExempt(importedPerfume.productType);
       isExemptPerfume = taxService.isExempt(perfume.productType);
@@ -293,9 +254,6 @@ describe('service test for tax service', () => {
       priceIP = taxService.calculatePrice(importedPerfume);
       pricePerfume = taxService.calculatePrice(perfume);
       priceIBC = taxService.calculatePrice(importedBoxChocolate);
-
-      totalSaleTax = taxService.calculateTotalSaleTax(products);
-      totalCoasts = taxService.calculateTotalCoasts(products);
     });
 
     describe('test tax service method: isExempt', () => {
@@ -340,17 +298,242 @@ describe('service test for tax service', () => {
         expect(priceIBC.price).toBe(11.81);
       });
     });
-    describe('test total tax service method: calculateTotalSaleTax', () => {
-       it('should have a total sales taxes of 6.70€', () => {
-          expect(totalSaleTax).toBe(6.7);
-       });
+  });
+  describe('test total tax service method: calculateTotalSaleTax', () => {
+    let totalSaleTaxOne: number;
+    let totalSaleTaxTwo: number;
+    let totalSaleTaxTree: number;
+    beforeEach( () => {
+      const bookEndTestOne: Product = {
+        amount: 1,
+        name: 'book',
+        productType: ProductType.BOOK,
+        priceWithoutTax: 12.49,
+        imported: false,
+        taxPercent: 0,
+        tax: 0,
+        price: 12.49
+      };
+      const cdEndTestOne: Product = {
+        amount: 1,
+        name: 'music CD',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 14.99,
+        imported: false,
+        taxPercent: 10,
+        tax: 1.5,
+        price: 16.49
+      };
+      const chocolateBarEndTest: Product = {
+        amount: 1,
+        name: 'chocolate bar',
+        productType: ProductType.FOOD,
+        priceWithoutTax: 0.85,
+        imported: false,
+        taxPercent: 0,
+        tax: 0,
+        price: 0.85
+      };
+      const productsInputOne: Product[] = [bookEndTestOne, cdEndTestOne, chocolateBarEndTest];
+
+      const importedBoxChocolateEndTestTwo = {
+        amount: 1,
+        name: 'imported box of chocolates',
+        productType: ProductType.FOOD,
+        priceWithoutTax: 10.00,
+        imported: true,
+        taxPercent: 5,
+        tax: 0.5,
+        price: 10.50
+      };
+      const importedPerfumeEndTestTwo = {
+        amount: 1,
+        name: 'imported bottle of perfume',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 47.5,
+        imported: true,
+        taxPercent: 15,
+        tax: 7.15,
+        price: 0
+      };
+      const productInputTwo: Product [] = [importedBoxChocolateEndTestTwo, importedPerfumeEndTestTwo];
+
+      const importedPerfumeEndTestTree = {
+        amount: 1,
+        name: 'imported bottle of Perfume',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 27.99,
+        imported: true,
+        taxPercent: 15,
+        tax: 4.2,
+        price: 32.19
+      };
+      const perfumeEndTestTree = {
+        amount: 1,
+        name: 'bottle of perfume',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 18.99,
+        imported: false,
+        taxPercent: 10,
+        tax: 1.9,
+        price: 20.89
+      };
+      const packetPillsEndTestTree = {
+        amount: 1,
+        name: 'packet of headache pills',
+        productType: ProductType.MEDICALS,
+        priceWithoutTax: 9.75,
+        imported: false,
+        taxPercent: 0,
+        tax: 0,
+        price: 9.75
+      };
+      const importedBoxChocolateEndTestTree = {
+        amount: 1,
+        name: 'box of imported chocolates',
+        productType: ProductType.FOOD,
+        priceWithoutTax: 11.25,
+        imported: true,
+        taxPercent: 5,
+        tax: 0.56,
+        price: 11.81
+      };
+      const productsInputTree: Product [] = [
+        importedPerfumeEndTestTree, perfumeEndTestTree, packetPillsEndTestTree, importedBoxChocolateEndTestTree
+      ];
+
+      totalSaleTaxOne = taxService.calculateTotalSaleTax(productsInputOne);
+      totalSaleTaxTwo = taxService.calculateTotalSaleTax(productInputTwo);
+      totalSaleTaxTree = taxService.calculateTotalSaleTax(productsInputTree);
     });
-    describe('test total tax service method: calculateTotalCoasts', () => {
-      it('should have total coasts of 74.68', () => {
-        expect(totalCoasts).toBe(74.68);
-      });
+    it('should have a total sales taxes of 1.50 € by Input one', () => {
+       expect(totalSaleTaxOne).toBe(1.5);
+     });
+    it('should have a total sales taxes of 7.65 € by Input two', () => {
+      expect(totalSaleTaxTwo).toBe(7.65);
+    });
+    it('should have a total sales taxes of 6.66 by Input tree', () => {
+      expect(totalSaleTaxTree).toBe(6.66);
     });
   });
-});
 
+  describe('test total tax service method: calculateTotalCoasts', () => {
+   let totalCostsOne: number;
+   let totalCostsTwo: number;
+   let totalCostsTree: number;
+
+   beforeEach( () => {
+      const bookEndTestOne: Product = {
+        amount: 1,
+        name: 'book',
+        productType: ProductType.BOOK,
+        priceWithoutTax: 12.49,
+        imported: false,
+        taxPercent: 0,
+        tax: 0,
+        price: 12.49
+      };
+      const cdEndTestOne: Product = {
+        amount: 1,
+        name: 'music CD',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 14.99,
+        imported: false,
+        taxPercent: 10,
+        tax: 1.5,
+        price: 16.49
+      };
+      const chocolateBarEndTest: Product = {
+        amount: 1,
+        name: 'chocolate bar',
+        productType: ProductType.FOOD,
+        priceWithoutTax: 0.85,
+        imported: false,
+        taxPercent: 0,
+        tax: 0,
+        price: 0.85
+      };
+      const productsInputOne: Product[] = [bookEndTestOne, cdEndTestOne, chocolateBarEndTest];
+
+      const importedBoxChocolateEndTestTwo = {
+        amount: 1,
+        name: 'imported box of chocolates',
+        productType: ProductType.FOOD,
+        priceWithoutTax: 10.00,
+        imported: true,
+        taxPercent: 5,
+        tax: 0.5,
+        price: 10.50
+      };
+      const importedPerfumeEndTestTwo = {
+        amount: 1,
+        name: 'imported bottle of perfume',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 47.5,
+        imported: true,
+        taxPercent: 15,
+        tax: 7.15,
+        price: 54.65
+      };
+      const productInputTwo: Product [] = [importedBoxChocolateEndTestTwo, importedPerfumeEndTestTwo];
+
+      const importedPerfumeEndTestTree = {
+        amount: 1,
+        name: 'imported bottle of Perfume',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 27.99,
+        imported: true,
+        taxPercent: 15,
+        tax: 4.2,
+        price: 32.19
+      };
+      const perfumeEndTestTree = {
+        amount: 1,
+        name: 'bottle of perfume',
+        productType: ProductType.OTHER,
+        priceWithoutTax: 18.99,
+        imported: false,
+        taxPercent: 10,
+        tax: 1.9,
+        price: 20.89
+      };
+      const packetPillsEndTestTree = {
+        amount: 1,
+        name: 'packet of headache pills',
+        productType: ProductType.MEDICALS,
+        priceWithoutTax: 9.75,
+        imported: false,
+        taxPercent: 0,
+        tax: 0,
+        price: 9.75
+      };
+      const importedBoxChocolateEndTestTree = {
+        amount: 1,
+        name: 'box of imported chocolates',
+        productType: ProductType.FOOD,
+        priceWithoutTax: 11.25,
+        imported: true,
+        taxPercent: 5,
+        tax: 0.56,
+        price: 11.81
+      };
+      const productsInputTree: Product [] = [
+        importedPerfumeEndTestTree, perfumeEndTestTree, packetPillsEndTestTree, importedBoxChocolateEndTestTree
+      ];
+
+      totalCostsOne = taxService.calculateTotalCoasts(productsInputOne);
+      totalCostsTwo = taxService.calculateTotalCoasts(productInputTwo);
+      totalCostsTree = taxService.calculateTotalCoasts(productsInputTree);
+    });
+   it('should be 29.83€ by input one', () => {
+      expect(totalCostsOne).toBe(29.83);
+    });
+   it('should be 65.15€ by input two', () => {
+     expect(totalCostsTwo).toBe(65.15);
+   });
+   it('should be 74.64 by input three', () => {
+     expect(totalCostsTree).toBe(74.64);
+   });
+  });
+});
 
