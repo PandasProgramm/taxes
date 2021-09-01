@@ -64,7 +64,7 @@ Output 3:
 >create empty methods 
 ####4. set test arrange
 > 1: create 3 x describe for input 1/2/3<br>
-> 2:arrange test data<br>
+> 2: arrange test data<br>
 > 
 > 
 >Test empty service method:
@@ -72,3 +72,8 @@ Output 3:
 ###### service:
 ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.01.08.png)
 
+#### Develop methods
+>isExempt :
+> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.31.49.png)
+>tests:
+> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.33.41.png)

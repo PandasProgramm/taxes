@@ -291,16 +291,16 @@ describe('service test for tax service', () => {
 
     describe('test tax service method: isExempt', () => {
       it('should to be exempt', () => {
-        expect(isExemptPacketPills).toBeTruthy();
+        expect(isExemptPacketPills).toBe(true);
+      });
+      it('should to be exempt', () => {
+        expect(isExemptIBC).toBe(true);
       });
       it('should not to be exempt', () => {
         expect(isExemptIP).toBe(false);
       });
       it('should not to be exempt', () => {
         expect(isExemptPerfume).toBe(false);
-      });
-      it('should not to be exempt', () => {
-        expect(isExemptIBC).toBe(false);
       });
     });
     describe('test tax service method: calculateTaxRate', () => {

@@ -6,10 +6,18 @@ import {Product, ProductType} from '../model/product';
   providedIn: 'root'
 })
 export class TaxService {
-  constructor() { }
+
+  /** @param exemptProductTypes are types without taxes of 10% */
+  private exemptProductTypes: ProductType[] = [ ProductType.FOOD, ProductType.MEDICALS, ProductType.BOOK];
 
   public isExempt(productType: string): boolean {
-    return null;
+    let query = false;
+    this.exemptProductTypes.forEach((type) => {
+      if (productType === type){
+        query = true;
+      }
+    });
+    return query;
   }
 
   public calculateTaxRate(product: Product): number {
