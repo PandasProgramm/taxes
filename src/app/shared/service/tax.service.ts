@@ -1,15 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Product, ProductType} from '../model/product';
 import {Observable, of} from 'rxjs';
+import {StoreService} from './store.service';
+import {takeUntil} from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaxService {
-
-  private exemptProductTypes: ProductType[] = [ ProductType.FOOD, ProductType.MEDICALS, ProductType.BOOK];
-  private products: Product[] = [];
+  private exemptProductTypes: ProductType[];
+  constructor(private http: StoreService) {
+    this.http.getProductTypes()
+      .subscribe((types) => { this.exemptProductTypes = types; });
+  }
 
   public isExempt(productType: string): boolean {
     let query = false;
@@ -58,10 +62,8 @@ export class TaxService {
    products.forEach((product) => sum += product.price);
    return sum;
   }
-  /**
-   *  @returns exemptProductTypes as observable to simulate a http call
-   */
-  public getProductTypes(): Observable<ProductType[]> {
-    return of(this.exemptProductTypes);
+
+  public getProductTypes(): ProductType[] {
+    return this.exemptProductTypes;
   }
 }
