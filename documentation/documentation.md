@@ -68,20 +68,24 @@ Output 3:
 > 
 > 
 >Test empty service method:
-![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.00.00.png)
+![](../src/assets/FirstTest.png)
 ###### service:
-![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.01.08.png)
+![](../src/assets/emptyMethods.png)
 
 #### Develop methods
 >isExempt :
-> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.31.49.png)
+> ![](../src/assets/isExempt.png)
 >tests:
-> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 13.33.41.png)
+> ![](../src/assets/testIsExempt.png)
 
 >calculateTaxRate:
-> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.31.39.png)
-> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.30.21.png)
+> ![](../src/assets/calculateTaxRate.png)
+> ![](../src/assets/testCalculateTaxRate.png)
 
 >calculatePrice:
-> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 14.31.39.png)
-> ![](../../../Desktop/Bildschirmfoto 2021-09-01 um 17.05.30.png)
+> ![](../src/assets/calculatePrice.png)
+> ![](../src/assets/testPrice.png)
+
+>finalTests:
+> ![](../src/assets/finalMethods.png)
+> ![](../src/assets/finalTestsService.png)
