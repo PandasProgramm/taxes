@@ -5,7 +5,7 @@ import {StoreService} from './store.service';
 
 
 
-describe('service test for tax service', () => {
+describe('services test for tax services', () => {
   let taxService: TaxService;
   beforeEach(() => {
     const store: StoreService = new StoreService();
@@ -74,7 +74,7 @@ describe('service test for tax service', () => {
 
     });
 
-    describe('test tax service method: isExempt', () => {
+    describe('test tax services method: isExempt', () => {
       it('should to be exempt', () => {
         expect(isExemptBook).toBeTruthy();
       });
@@ -85,7 +85,7 @@ describe('service test for tax service', () => {
         expect(isExemptCD).toBe(false);
       });
     });
-    describe('test tax service method: calculateTaxRate', () => {
+    describe('test tax services method: calculateTaxRate', () => {
       it('should not have any tax, because the product typ is food and is not imported', () => {
         expect(taxBook.taxPercent).toBe(0);
       });
@@ -96,7 +96,7 @@ describe('service test for tax service', () => {
         expect(taxChocolateBar.taxPercent).toBe(0);
       });
     });
-    describe('test tax service method: calculatePrice', () => {
+    describe('test tax services method: calculatePrice', () => {
       it('should to be 12.49€', () => {
         expect(priceBook.price).toBe(12.49);
       });
@@ -155,7 +155,7 @@ describe('service test for tax service', () => {
 
     });
 
-    describe('test tax service method: isExempt', () => {
+    describe('test tax services method: isExempt', () => {
       it('should to be exempt', () => {
         expect(isExemptIBC).toBeTruthy();
       });
@@ -163,7 +163,7 @@ describe('service test for tax service', () => {
         expect(isExemptIP).toBe(false);
       });
     });
-    describe('test tax service method: calculateTaxRate', () => {
+    describe('test tax services method: calculateTaxRate', () => {
       it('should have a rate of 5 percent', () => {
         expect(taxImportedBoxChocolate.taxPercent).toBe(5);
       });
@@ -171,7 +171,7 @@ describe('service test for tax service', () => {
         expect(taxImportedPerfume.taxPercent).toBe(15);
       });
     });
-    describe('test tax service method: calculatePrice', () => {
+    describe('test tax services method: calculatePrice', () => {
       it('should have a price of 10.50 €', () => {
         expect(priceBoxChocolate.price).toBe(10.5);
       });
@@ -258,7 +258,7 @@ describe('service test for tax service', () => {
       priceIBC = taxService.calculatePrice(importedBoxChocolate);
     });
 
-    describe('test tax service method: isExempt', () => {
+    describe('test tax services method: isExempt', () => {
       it('should to be exempt', () => {
         expect(isExemptPacketPills).toBe(true);
       });
@@ -272,7 +272,7 @@ describe('service test for tax service', () => {
         expect(isExemptPerfume).toBe(false);
       });
     });
-    describe('test tax service method: calculateTaxRate', () => {
+    describe('test tax services method: calculateTaxRate', () => {
       it('should have a tax rate of 0 percent', () => {
         expect(taxPacketPills.taxPercent).toBe(0);
       });
@@ -286,7 +286,7 @@ describe('service test for tax service', () => {
         expect(taxIBC.taxPercent).toBe(5);
       });
     });
-    describe('test tax service method: calculatePrice', () => {
+    describe('test tax services method: calculatePrice', () => {
       it('should be 32.19€', () => {
         expect(priceIP.price).toBe(32.19);
       });
@@ -301,7 +301,7 @@ describe('service test for tax service', () => {
       });
     });
   });
-  describe('test total tax service method: calculateTotalSaleTax', () => {
+  describe('test total tax services method: calculateTotalSaleTax', () => {
     let totalSaleTaxOne: number;
     let totalSaleTaxTwo: number;
     let totalSaleTaxTree: number;
@@ -419,7 +419,7 @@ describe('service test for tax service', () => {
     });
   });
 
-  describe('test total tax service method: calculateTotalCoasts', () => {
+  describe('test total tax services method: calculateTotalCoasts', () => {
    let totalCostsOne: number;
    let totalCostsTwo: number;
    let totalCostsTree: number;

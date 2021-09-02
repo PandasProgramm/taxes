@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from '../../shared/model/product';
-import {TaxService} from '../../shared/service/tax.service';
+import {TaxService} from '../../shared/services/tax.service';
 
 @Component({
   selector: 'app-output',

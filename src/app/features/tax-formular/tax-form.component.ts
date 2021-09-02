@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Product, ProductType} from '../../shared/model/product';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TaxService} from '../../shared/service/tax.service';
-import {StoreService} from '../../shared/service/store.service';
+import {TaxService} from '../../shared/services/tax.service';
+import {StoreService} from '../../shared/services/store.service';
 import {Observable} from 'rxjs';
 
 @Component({
