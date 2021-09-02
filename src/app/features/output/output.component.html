@@ -1,0 +1,9 @@
+<div *ngFor="let p of products">{{p|json}}</div>
+<div>
+  <span>{{'total tax sales:'}}</span>
+  <span>{{totalTaxSales + ' €'}}</span>
+</div>
+<div>
+  <span>{{'total price:'}}</span>
+  <span>{{totalPrice + ' €'}}</span>
+</div>

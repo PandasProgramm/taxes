@@ -1,1 +1,22 @@
-<p>tax-formular works!</p>
+<form [formGroup]="taxForm" class="form" (ngSubmit)="onCalculate()">
+  <input type="number" placeholder="amount" formControlName="amount" class="input">
+  <span class="invalid" *ngIf="!taxForm.get('amount').valid && taxForm.get('amount').touched">
+    {{'required and must have a minimum value of 1'}}
+  </span>
+  <input type="text" placeholder="name" formControlName="name" class="input">
+  <span class="invalid" *ngIf="!taxForm.get('name').valid && taxForm.get('name').touched">
+    {{'required and must have 4 letters'}}
+  </span>
+  <select *ngIf="(productTypes$|async) as productTypes"  class="input" formControlName="productType" [(ngModel)]="selectedType">
+    <option *ngFor="let productType of productTypes; let i = index"  class="option" [ngValue]="productType" [defaultSelected]="productTypes[0]" [selected]="onSelected(productType)">{{productType}}</option>
+  </select>
+  <div class="input">
+    <label>imported:</label>
+    <input type="checkbox" formControlName="imported"  (change)="isChecked($event)" >
+  </div>
+  <input type="number" placeholder="price without tax" formControlName="priceWithoutTax" class="input">
+  <span class="invalid" *ngIf="!taxForm.get('priceWithoutTax').valid && taxForm.get('priceWithoutTax').touched">
+    {{'required and must have a  min length of 5'}}
+  </span>
+  <button type="submit" [disabled]="taxForm.invalid" >Calculate</button>
+</form>

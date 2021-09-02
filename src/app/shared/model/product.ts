@@ -13,5 +13,5 @@ export enum ProductType {
   BOOK = 'book',
   FOOD = 'food',
   MEDICALS = 'medical products',
-  OTHER = ''
+  OTHER = 'Other'
 }

@@ -89,3 +89,12 @@ Output 3:
 >finalTests:
 > ![](../src/assets/finalMethods.png)
 > ![](../src/assets/finalTestsService.png)
+> 
+
+->  add a mock store service with tests
+->  "(url is empty => test fail)" <br>
+->  add tax form component
+
+>Tax form component:
+> ![](../src/assets/formTest.png)
+> ![](../src/assets/testForm.png)

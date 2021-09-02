@@ -1,8 +1,6 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {Product, ProductType} from '../model/product';
-import {Observable, of} from 'rxjs';
 import {StoreService} from './store.service';
-import {takeUntil} from 'rxjs/operators';
 
 
 @Injectable({
@@ -10,8 +8,9 @@ import {takeUntil} from 'rxjs/operators';
 })
 export class TaxService {
   private exemptProductTypes: ProductType[];
-  constructor(private http: StoreService) {
-    this.http.getProductTypes()
+  public onPushProduct: EventEmitter<Product> = new EventEmitter<Product>();
+  constructor(private store: StoreService) {
+    this.store.getExemptProductTypes()
       .subscribe((types) => { this.exemptProductTypes = types; });
   }
 
@@ -63,7 +62,7 @@ export class TaxService {
    return sum;
   }
 
-  public getProductTypes(): ProductType[] {
-    return this.exemptProductTypes;
+  onPushEvent(product: Product): void {
+    this.onPushProduct.emit(product);
   }
 }

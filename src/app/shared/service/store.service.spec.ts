@@ -29,12 +29,12 @@ describe('HttpService', () => {
   });
   it('should get a list of product types', () => {
     let receivedProductTypes: ProductType[];
-    service.getProductTypes()
+    service.getExemptProductTypes()
       .subscribe((types) => { receivedProductTypes = types; });
 
     /**
      * get product types from simulate queue
-     * TODO: set url and test request
+     * TODO: set url and test request => This test fails...
      */
     const request = httpMock.expectOne('');
     request.flush(productTypes);

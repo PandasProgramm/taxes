@@ -1,13 +1,15 @@
 import {TaxService} from './tax.service';
 import {ProductType} from '../model/product';
 import {Product} from '../model/product';
+import {StoreService} from './store.service';
 
 
 
 describe('service test for tax service', () => {
   let taxService: TaxService;
   beforeEach(() => {
-    taxService = new TaxService();
+    const store: StoreService = new StoreService();
+    taxService = new TaxService(store);
   });
   describe('#input 1', () => {
 
