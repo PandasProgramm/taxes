@@ -59,9 +59,9 @@ export class TaxService {
    return sum;
   }
   /**
-   *  @returns products as observable to simulate a http call
+   *  @returns exemptProductTypes as observable to simulate a http call
    */
-  public getProducts(): Observable<Product[]> {
-    return of(this.products);
+  public getProductTypes(): Observable<ProductType[]> {
+    return of(this.exemptProductTypes);
   }
 }
