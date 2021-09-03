@@ -8,7 +8,7 @@
     {{'required and must have 4 letters'}}
   </span>
   <select *ngIf="(productTypes$|async) as productTypes"  class="input" formControlName="productType" >
-    <option *ngFor="let productType of productTypes; let i = index"
+    <option *ngFor="let productType of productTypes; let i = index" [ngValue]="productType"
             class="option"
     >{{productType}}</option>
   </select>
