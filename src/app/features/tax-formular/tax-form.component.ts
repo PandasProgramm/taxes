@@ -45,8 +45,8 @@ export class TaxFormComponent implements OnInit {
       this.onReset();
     }
   }
-  public onSelected(type: string): void{
-    this.selectedType = type;
+  public onSelected(type: string): string{
+    return this.selectedType = type;
   }
   private onPush(product: Product): void {
     this.taxService.onPushEvent(product);
