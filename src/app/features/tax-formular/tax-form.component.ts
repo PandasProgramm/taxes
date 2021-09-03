@@ -14,7 +14,6 @@ export class TaxFormComponent implements OnInit {
 
   productTypes$: Observable<ProductType[]>;
   taxForm: FormGroup;
-  default = 'select value';
   checked = false;
   selectedType: string;
 
@@ -23,14 +22,7 @@ export class TaxFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taxForm = new FormGroup({
-      amount : new FormControl(0, [Validators.required, Validators.min(1)]),
-      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      imported: new FormControl(null),
-      productType: new FormControl(this.selectedType, Validators.required),
-      priceWithoutTax: new FormControl('', [ Validators.required, Validators.min(1)])
-    });
-    this.selectedType = this.taxForm.value.productType;
+    this.onReset();
   }
   public isChecked(event): void {
     event.target.checked === true ? this.checked = true : this.checked = false;
@@ -52,14 +44,21 @@ export class TaxFormComponent implements OnInit {
       this.onReset();
     }
   }
-  public onSelected(type: string): void{
+  public onSelected(type: string): string{
     this.selectedType = type;
+    return this.selectedType;
   }
   private onPush(product: Product): void {
     this.taxService.onPushEvent(product);
   }
   private onReset(): void {
-    this.taxForm.reset();
-    this.checked = false;
+    this.taxForm = new FormGroup({
+      amount : new FormControl(0, [Validators.required, Validators.min(1)]),
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      imported: new FormControl(null),
+      productType: new FormControl(this.selectedType, Validators.required),
+      priceWithoutTax: new FormControl('', [ Validators.required, Validators.min(1)])
+    });
+    this.selectedType = this.taxForm.value.productType;
   }
 }
