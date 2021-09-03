@@ -7,7 +7,8 @@
   <span class="invalid" *ngIf="!taxForm.get('name').valid && taxForm.get('name').touched">
     {{'required and must have 4 letters'}}
   </span>
-  <select *ngIf="(productTypes$|async) as productTypes"  class="input" formControlName="productType" [(ngModel)]="selectedType">
+  <select *ngIf="(productTypes$|async) as productTypes"  class="input" formControlName="productType" [(ngModel)]="selectedType" >
+    <option>is empty</option>
     <option *ngFor="let productType of productTypes; let i = index"  class="option" [ngValue]="productType" [defaultSelected]="productTypes[0]" [selected]="onSelected(productType)">{{productType}}</option>
   </select>
   <div class="input">

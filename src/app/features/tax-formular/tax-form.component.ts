@@ -27,7 +27,7 @@ export class TaxFormComponent implements OnInit {
       amount : new FormControl(0, [Validators.required, Validators.min(1)]),
       name: new FormControl('', [Validators.required, Validators.minLength(4)]),
       imported: new FormControl(null),
-      productType: new FormControl('', Validators.required),
+      productType: new FormControl(this.selectedType, Validators.required),
       priceWithoutTax: new FormControl('', [ Validators.required, Validators.min(1)])
     });
     this.selectedType = this.taxForm.value.productType;
@@ -49,14 +49,17 @@ export class TaxFormComponent implements OnInit {
       };
       product = this.taxService.calculatePrice(product);
       this.onPush(product);
-      this.taxForm.reset();
-      this.checked = false;
+      this.onReset();
     }
   }
-  onSelected(type: string): void{
+  public onSelected(type: string): void{
     this.selectedType = type;
   }
   private onPush(product: Product): void {
     this.taxService.onPushEvent(product);
+  }
+  private onReset(): void {
+    this.taxForm.reset();
+    this.checked = false;
   }
 }
