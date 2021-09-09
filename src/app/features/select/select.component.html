@@ -1,0 +1,16 @@
+<div class="selectContent">
+  <cavok-ng-content-header
+    [title]="titleTask"
+    (pushRemoveEvent)="onReset($event)">
+  </cavok-ng-content-header>
+  <mat-expansion-panel class="selectPanel" [(expanded)]="panelState">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{selected}}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <cavok-ng-search (triggeredValue)="searchValue$.next($event)"></cavok-ng-search>
+    <hr>
+    <ul class="table" *ngIf="filteredRows$|async as rows">
+      <li class="selection" *ngFor="let row of rows" (click)="onSelect(row)">{{row}}</li>
+    </ul>
+  </mat-expansion-panel>
+</div>

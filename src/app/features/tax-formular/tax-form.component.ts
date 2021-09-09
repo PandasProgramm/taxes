@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 @Component({
   selector: 'app-tax-form',
   templateUrl: './tax-form.component.html',
-  styleUrls: ['./tax-form.component.css']
+  styleUrls: ['./tax-form.component.less']
 })
 export class TaxFormComponent implements OnInit {
 
@@ -46,7 +46,8 @@ export class TaxFormComponent implements OnInit {
     }
   }
   public onSelected(type: string): string{
-    return this.selectedType = type;
+    this.selectedType = type;
+    return  this.selectedType;
   }
   private onPush(product: Product): void {
     this.taxService.onPushEvent(product);

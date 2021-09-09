@@ -14,7 +14,7 @@ export class TaxService {
       .subscribe((types) => { this.exemptProductTypes = types; });
   }
 
-  public isExempt(productType: string): boolean {
+  protected isExempt(productType: string): boolean {
     let query = false;
     this.exemptProductTypes.forEach((type) => {
       if (productType === type){
@@ -24,7 +24,7 @@ export class TaxService {
     return query;
   }
 
-  public calculateTaxRate(product: Product): Product {
+  protected calculateTaxRate(product: Product): Product {
     const isExempt = this.isExempt( product.productType );
     const basicTax = 10;
     const importTax = 5;

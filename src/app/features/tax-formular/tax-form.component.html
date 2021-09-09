@@ -8,17 +8,24 @@
     {{'required and must have 4 letters'}}
   </span>
   <select *ngIf="(productTypes$|async) as productTypes"  class="input" formControlName="productType" [ngModel]="selectedType">
-    <option *ngFor="let productType of productTypes; let i = index" [ngValue]="productType" [selected]="onSelected(productTypes[0])"
-            class="option"
-    >{{productType}}</option>
+    <option *ngFor="let productType of productTypes; let i = index"
+            [ngValue]="productType"
+            [selected]="onSelected(productTypes[0])"
+            class="option">
+      {{productType}}
+    </option>
   </select>
   <div class="input">
     <label>imported:</label>
     <input type="checkbox" formControlName="imported"  (change)="isChecked($event)" >
   </div>
-  <input type="number" placeholder="price without tax" formControlName="priceWithoutTax" class="input">
+  <div class=" input inputGroup">
+    <mat-icon>search</mat-icon>
+    <input type="number" placeholder="price without tax" formControlName="priceWithoutTax" class="input">
+  </div>
   <span class="invalid" *ngIf="!taxForm.get('priceWithoutTax').valid && taxForm.get('priceWithoutTax').touched">
     {{'required and must have a  min length of 5'}}
   </span>
   <button type="submit" [disabled]="taxForm.invalid" >Calculate</button>
 </form>
+
